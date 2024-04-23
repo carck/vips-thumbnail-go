@@ -34,18 +34,25 @@ func Shutdown() {
 	C.vips_shutdown()
 }
 
-func Thumbnail(fileName, thumbnailFileName string, width, height, crop int) error {
+func Thumbnail(fileName, thumbnailFileName string, width, height, crop int, exportProfile string) error {
 	cFileName := C.CString(fileName)
 	defer C.free(unsafe.Pointer(cFileName))
 
 	cOutName := C.CString(thumbnailFileName)
 	defer C.free(unsafe.Pointer(cOutName))
 
+	var cExportProfile *C.char = nil
+	if exportProfile != "" {
+		cExportProfile = C.CString(exportProfile)
+		defer C.free(unsafe.Pointer(cExportProfile))
+	}
+
 	err := C.thumbnail(cFileName,
 		cOutName,
 		C.int(width),
 		C.int(height),
-		C.int(crop))
+		C.int(crop),
+		cExportProfile)
 	if err != 0 {
 		return handleVipsError()
 	}

@@ -1,17 +1,17 @@
 #include "vips.h"
 
-int thumbnail(const char *filename, const char *outputname, int width, int height, int crop, int q)
+int thumbnail(const char *filename, const char *outputname, int width, int height, int crop, const char* export_profile)
 {
     int ret;
     VipsImage *image;
 
     if (crop == -1)
     {
-        ret = vips_thumbnail(filename, &image, width, "export-profile", "srgb", NULL);
+        ret = vips_thumbnail(filename, &image, width, "export-profile", export_profile, NULL);
     }
     else
     {
-        ret = vips_thumbnail(filename, &image, width, "height", height, "crop", crop, "export-profile", "srgb",NULL);
+        ret = vips_thumbnail(filename, &image, width, "height", height, "crop", crop, "export-profile", export_profile, NULL);
     }
 
     if (ret)
@@ -19,7 +19,7 @@ int thumbnail(const char *filename, const char *outputname, int width, int heigh
         return -1;
     }
 
-    if (vips_image_write_to_file(image, outputname, "Q", q, NULL))
+    if (vips_image_write_to_file(image, outputname, NULL))
     {
         VIPS_UNREF(image);
         return (-1);

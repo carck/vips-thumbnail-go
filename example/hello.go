@@ -8,5 +8,5 @@ func main() {
 	vips.Start()
 	defer vips.Shutdown()
 
-	vips.Thumbnail("./abc.jpg", "123.jpg", 224, 224, 0)
+	vips.Thumbnail("./abc.jpg", "123.jpg", 224, 224, 0, "srgb")
 }
