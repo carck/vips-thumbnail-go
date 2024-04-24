@@ -12,6 +12,7 @@ import (
 )
 
 const (
+	InterestingOff       int = 0
 	InterestingNone      int = C.VIPS_INTERESTING_NONE
 	InterestingCentre    int = C.VIPS_INTERESTING_CENTRE
 	InterestingEntropy   int = C.VIPS_INTERESTING_ENTROPY
