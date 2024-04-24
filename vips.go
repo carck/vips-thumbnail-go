@@ -24,7 +24,10 @@ const (
 )
 
 func Start() {
-	err := C.vips_init(C.CString("photoprism"))
+	appName := C.CString("photoprism")
+	defer C.free(unsafe.Pointer(appName))
+
+	err := C.vips_init(appName)
 	if err != 0 {
 		panic("unable to start vips!")
 	}
