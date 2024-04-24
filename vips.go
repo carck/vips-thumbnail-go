@@ -39,7 +39,7 @@ func Shutdown() {
 }
 
 func ThumbnailDefault(fileName, thumbnailFileName string, width, height, crop, q int) error {
-	return Thumbnail(fileName, thumbnailFileName, width, height, crop, q, "", true)
+	return Thumbnail(fileName, thumbnailFileName, width, height, crop, q, "srgb", true)
 }
 
 func Thumbnail(fileName, thumbnailFileName string, width, height, crop, q int, exportProfile string, strip bool) error {
