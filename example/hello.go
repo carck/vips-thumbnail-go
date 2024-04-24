@@ -8,7 +8,7 @@ func main() {
 	vips.Start()
 	defer vips.Shutdown()
 
-	err := vips.Thumbnail("./abc.jpg", "123.jpg[Q=90,optimize_coding,keep=none,subsample-mode=on]", 224, 224, 0, "srgb")
+	err := vips.Thumbnail("./IMG_8638.heic", "123.jpg", 500, 500, -1, 90, "srgb", true)
 	if err != nil {
 		panic(err)
 	}

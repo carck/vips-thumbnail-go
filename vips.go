@@ -34,11 +34,19 @@ func Shutdown() {
 	C.vips_shutdown()
 }
 
-func Thumbnail(fileName, thumbnailFileName string, width, height, crop int, exportProfile string) error {
+func ThumbnailDefault(fileName, thumbnailFileName string, width, height, crop, q int) error {
+	return Thumbnail(fileName, thumbnailFileName, width, height, crop, q, "", true)
+}
+
+func Thumbnail(fileName, thumbnailFileName string, width, height, crop, q int, exportProfile string, strip bool) error {
 	cFileName := C.CString(fileName)
 	defer C.free(unsafe.Pointer(cFileName))
 
-	cOutName := C.CString(thumbnailFileName)
+	keep := "icc"
+	if strip {
+		keep = "none"
+	}
+	cOutName := C.CString(fmt.Sprintf("%s[Q=%d,optimize_coding,keep=%s,subsample-mode=auto]", thumbnailFileName, q, keep))
 	defer C.free(unsafe.Pointer(cOutName))
 
 	var cExportProfile *C.char = nil
