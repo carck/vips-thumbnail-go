@@ -50,7 +50,7 @@ func Thumbnail(fileName, thumbnailFileName string, width, height, crop, q int, e
 	if strip {
 		keep = "none"
 	}
-	cOutName := C.CString(fmt.Sprintf("%s[Q=%d,optimize_coding,keep=%s,subsample-mode=auto]", thumbnailFileName, q, keep))
+	cOutName := C.CString(fmt.Sprintf("%s[Q=%d,optimize_coding,keep=%s,subsample-mode=on]", thumbnailFileName, q, keep))
 	defer C.free(unsafe.Pointer(cOutName))
 
 	var cExportProfile *C.char = nil
